@@ -18,7 +18,16 @@ App.on("window-all-closed", function(){
 // Electronの初期化完了後に実行
 App.on("ready", function(){
 	// メイン画面の表示。ウィンドウの幅、高さを指定できる
-	mainWindow = new BrowserWindow({width: 600, height: 375, resizable: false, center: true, autoHideMenuBar: true});
+	var size = require('screen').getPrimaryDisplay().size;
+	mainWindow = new BrowserWindow({
+		width: 600,
+		height: 375,
+		x: size.width - 600,
+		y: size.height - 410,
+		resizable: false,
+		center: true,
+		autoHideMenuBar: true
+	});
 	mainWindow.loadURL("file://" + __dirname + "/index.html");
 	
 	// ウィンドウが閉じられたらアプリも終了
