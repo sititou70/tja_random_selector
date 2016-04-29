@@ -1,3 +1,38 @@
-/* -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    基本のスタイル
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ */
+body{
+	font-size: 18px;
+	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+	background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 121, color-stop(1.00, #001116), color-stop(0.00, #003447));
+	background: -webkit-radial-gradient(50% 50%, circle, #003447, #001116);
+	background: -moz-radial-gradient(50% 50%, circle, #003447, #001116);
+	background: -o-radial-gradient(50% 50%, circle, #003447, #001116);
+	background: -ms-radial-gradient(50% 50%, circle, #003447, #001116);
+	background: radial-gradient(50% 50%, circle, #003447, #001116);
+}
+
+h1,
+h2{
+	color: #ddd;
+}
+
+h1{
+	text-align: center;
+}
+
+h2{
+	margin: 30px 0 10px 0;
+}
+
+button{
+	padding: 10px;
+	margin: 3px;
+	font-size: 100%;
+}
+
+
+.select_category{
+	margin: 5px;
+}
+
+.times_selector{
+	display: none;
+}
