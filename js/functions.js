@@ -95,7 +95,13 @@ var start_random_select = function(webContents, query, times, App){
 			return;
 		}
 		
-		this_.webContents.send("set_info", this_.random_songs[this_.i].title, (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times));
+		var info = {
+			title: this_.random_songs[this_.i].title,
+			level: this_.random_songs[this_.i].level,
+			bpm_info: (this_.random_songs[this_.i].bpm_low == this_.random_songs[this_.i].bpm_high) ? this_.random_songs[this_.i].bpm_low + "BPM" : this_.random_songs[this_.i].bpm_low + " - " + this_.random_songs[this_.i].bpm_high + "BPM",
+			songs_num: (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times)
+		};
+		this_.webContents.send("set_info", info);
 		var command = '"' + taikojiro_dir_path + 'taikojiro.exe" ' + this_.random_songs[this_.i].path;
 		command = command.replace(/\//g, "\\");
 		exec(command, (function(this_){
