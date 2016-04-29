@@ -1,4 +1,5 @@
 body{
+	color: #ddd;
 	font-size: 18px;
 	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
 	background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 121, color-stop(1.00, #001116), color-stop(0.00, #003447));
@@ -7,11 +8,6 @@ body{
 	background: -o-radial-gradient(50% 50%, circle, #003447, #001116);
 	background: -ms-radial-gradient(50% 50%, circle, #003447, #001116);
 	background: radial-gradient(50% 50%, circle, #003447, #001116);
-}
-
-h1,
-h2{
-	color: #ddd;
 }
 
 h1{
@@ -34,9 +30,35 @@ button{
 }
 
 .times_selector{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+	line-height: 100vh;
 	display: none;
 }
 
 .info_view{
 	display: none;
+}
+
+.info_view > .title{
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	margin: auto;
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+	font-size: 200%;
+	line-height: 100vh;
+}
+
+.info_view > .songs_num{
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
 }
