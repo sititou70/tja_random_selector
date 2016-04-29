@@ -2,10 +2,14 @@ var fs = require("fs");
 var exec = require('child_process').exec;
 var songs_info = [];
 var taikojiro_dir_path = "";
+var App = null;
+var webContents = null;
 
 //初期化処理
-var init = function(taikojiro_dir_path){
-	var taikojiro_dir_path = taikojiro_dir_path;
+var init = function(params){
+	taikojiro_dir_path = params.taikojiro_dir_path;
+	App = params.App;
+	webContents = params.webContents;
 	
 	songs_info = get_files(taikojiro_dir_path, ".*\.tja$");
 	
@@ -70,7 +74,7 @@ var get_songs_info = function(path){
 };
 
 //ランダムセレクトをスタート
-var start_random_select = function(webContents, query, times, App){
+var start_random_select = function(query, times){
 	if(times == "Inf")times = Infinity;
 	var random_songs = [];
 	songs_info.forEach(function(obj){

@@ -34,11 +34,18 @@ App.on("ready", function(){
 	mainWindow.on("closed", function(){
 		mainWindow = null;
 	});
+	
+	//functionsをinit
+	functions.init({
+		taikojiro_dir_path: __dirname.replace(__dirname.match(/^.*\\(.*?\\?)$/)[1], ""),
+		App: App,
+		webContents: mainWindow.webContents,
+	});
 });
 
 //ipcハンドラを定義
 ipcMain.on("start_random_select", function(event, query, times){
-	functions.start_random_select(mainWindow.webContents, query, times, App);
+	functions.start_random_select(query, times);
 });
 
 //メニューバーを定義
@@ -57,4 +64,3 @@ var menu = Menu.buildFromTemplate([
 ]);
 Menu.setApplicationMenu(menu);
 
-functions.init(__dirname.replace(__dirname.match(/^.*\\(.*?\\?)$/)[1], ""));
