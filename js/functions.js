@@ -93,7 +93,7 @@ var start_random_select = function(query, times){
 	var run_tja;
 	run_tja = function(this_){
 		if(this_.i >= this_.times || this_.i >= this_.random_songs.length){
-			if(this_.i >= this_.random_songs.length)webContents.send("alert", "該当する全ての曲をプレイしました")
+			if(this_.i >= this_.random_songs.length)webContents.send("alert", "該当する全ての曲をプレイしました");
 			webContents.send("reset_view");
 			return;
 		}
