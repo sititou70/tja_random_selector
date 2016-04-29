@@ -107,7 +107,7 @@ var start_random_select = function(query, times){
 			songs_num: (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times)
 		};
 		this_.webContents.send("set_info", info);
-		var command = '"' + taikojiro_dir_path + 'taikojiro.exe" ' + this_.random_songs[this_.i].path;
+		var command = '"' + taikojiro_dir_path + 'taikojiro.exe" "' + this_.random_songs[this_.i].path + '"';
 		command = command.replace(/\//g, "\\");
 		exec(command, (function(this_){
 			return function(){
