@@ -39,12 +39,20 @@ var get_songs_info = function(path){
 		return e.code;
 	}
 	
-	var level = content.match(/[\s\S]LEVEL:([0-9]+)[\s\S]/)[1];
+	var levels = content.match(/[\s\S]LEVEL:[0-9]+[\s\S]/g);
+	var max_level = -1;
+	
+	levels.forEach(function(obj){
+		var now_level = parseInt(obj.match(/LEVEL:([0-9]+)/)[1]);
+		if(now_level > max_level)max_level = now_level;
+	});
+	
+	
 	var bpms = content.match(/[\s\S](BPM:|#BPMCHANGE )[0-9]+[\s\S]/g);
 	var bpm_high = -1;
 	var bpm_low = 9999999;
 	
-	bpms.forEach(function(obj, i){
+	bpms.forEach(function(obj){
 		var now_bpm = parseInt(obj.match(/(BPM:|#BPMCHANGE )([0-9]+)/)[2]);
 		if(now_bpm > bpm_high)bpm_high = now_bpm;
 		if(now_bpm < bpm_low)bpm_low = now_bpm;
@@ -53,7 +61,7 @@ var get_songs_info = function(path){
 	var info = {
 		path: path,
 		title: path.match(/^.*\/(.*?)\.tja$/)[1],
-		level: level,
+		level: max_level,
 		bpm_high: bpm_high,
 		bpm_low: bpm_low
 	};
