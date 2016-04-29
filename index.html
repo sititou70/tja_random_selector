@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="style.css">
 		<script type="text/javascript">
 			window.jQuery = window.$ = require('./js/jquery-2.2.3.min.js');
-			require('remote').getCurrentWindow().toggleDevTools();
+			//require('remote').getCurrentWindow().toggleDevTools();
 		</script>
 	</head>
 	<body>
@@ -14,53 +14,53 @@
 			<h1>TJAランダムセレクター</h1>
 			<section class="select_category">
 				<h2>全て</h2>
-				<button type="button" data-query="Infinity">全ての曲から</button>
+				<button type="button" data-query="(true)">全ての曲から</button>
 			</section>
 			
 			<section class="select_category">
 				<h2>レベル別</h2>
-				<button type="button" data-query="Infinity">★×10以上</button>
-				<button type="button" data-query="Infinity">★×9以上</button>
-				<button type="button" data-query="Infinity">★×9</button>
-				<button type="button" data-query="Infinity">★×8</button>
-				<button type="button" data-query="Infinity">★×7</button>
-				<button type="button" data-query="Infinity">★×6</button>
-				<button type="button" data-query="Infinity">★×5以下</button>
+				<button type="button" data-query="%level% >= 10">★×10以上</button>
+				<button type="button" data-query="%level% >= 9">★×9以上</button>
+				<button type="button" data-query="%level% == 9">★×9</button>
+				<button type="button" data-query="%level% == 8">★×8</button>
+				<button type="button" data-query="%level% == 7">★×7</button>
+				<button type="button" data-query="%level% == 6">★×6</button>
+				<button type="button" data-query="%level% <= 5">★×5以下</button>
 				<br>
-				<button type="button" data-query="Infinity">★×9以上</button>
-				<button type="button" data-query="Infinity">★×8から9</button>
-				<button type="button" data-query="Infinity">★×7から6</button>
-				<button type="button" data-query="Infinity">★×6から9</button>
+				<button type="button" data-query="%level% >= 9">★×9以上</button>
+				<button type="button" data-query="%level% >= 8 && %level% <= 9">★×8から9</button>
+				<button type="button" data-query="%level% >= 6 && %level% <= 7">★×6から7</button>
+				<button type="button" data-query="%level% >= 6 && %level% <= 9">★×6から9</button>
 			</section>
 			
 			<section class="select_category">
 				<h2>BPM別</h2>
-				<button type="button" data-query="Infinity">早い（200以上）</button>
-				<button type="button" data-query="Infinity">普通（170から200）</button>
-				<button type="button" data-query="Infinity">遅い（170以下）</button>
+				<button type="button" data-query="%bpm_low% >= 200 || %bpm_high% >= 200">早い（200以上）</button>
+				<button type="button" data-query="(%bpm_low% >= 170 || %bpm_high% >= 170) && (%bpm_low% <= 200 || %bpm_high% <= 200)">普通（170から200）</button>
+				<button type="button" data-query="%bpm_low% <= 170 || %bpm_high% <= 170">遅い（170以下）</button>
 			</section>
 			
 			<section class="select_category">
 				<h2>混合</h2>
-				<button type="button" data-query="Infinity">★×10以上で早い</button>
-				<button type="button" data-query="Infinity">★×10以上で普通</button>
-				<button type="button" data-query="Infinity">★×10以上で遅い</button>
+				<button type="button" data-query="(%level% >= 10) && (%bpm_low% >= 200 || %bpm_high% >= 200)">★×10以上で早い</button>
+				<button type="button" data-query="(%level% >= 10)  && ((%bpm_low% >= 170 || %bpm_high% >= 170) && (%bpm_low% <= 200 || %bpm_high% <= 200))">★×10以上で普通</button>
+				<button type="button" data-query="(%level% >= 10)  && (%bpm_low% <= 170 || %bpm_high% <= 170)">★×10以上で遅い</button>
 				<br>
-				<button type="button" data-query="Infinity">★×8から9で早い</button>
-				<button type="button" data-query="Infinity">★×8から9で普通</button>
-				<button type="button" data-query="Infinity">★×8から9で遅い</button>
+				<button type="button" data-query="(%level% >= 8 && %level% <= 9) && (%bpm_low% >= 200 || %bpm_high% >= 200)">★×8から9で早い</button>
+				<button type="button" data-query="(%level% >= 8 && %level% <= 9) && ((%bpm_low% >= 170 || %bpm_high% >= 170) && (%bpm_low% <= 200 || %bpm_high% <= 200))">★×8から9で普通</button>
+				<button type="button" data-query="(%level% >= 8 && %level% <= 9) && (%bpm_low% <= 170 || %bpm_high% <= 170)">★×8から9で遅い</button>
 				<br>
-				<button type="button" data-query="Infinity">★×6から7で早い</button>
-				<button type="button" data-query="Infinity">★×6から7で普通</button>
-				<button type="button" data-query="Infinity">★×6から7で遅い</button>
+				<button type="button" data-query="(%level% >= 6 && %level% <= 7) && (%bpm_low% >= 200 || %bpm_high% >= 200)">★×6から7で早い</button>
+				<button type="button" data-query="(%level% >= 6 && %level% <= 7) && ((%bpm_low% >= 170 || %bpm_high% >= 170) && (%bpm_low% <= 200 || %bpm_high% <= 200))">★×6から7で普通</button>
+				<button type="button" data-query="(%level% >= 6 && %level% <= 7) && (%bpm_low% <= 170 || %bpm_high% <= 170)">★×6から7で遅い</button>
 				<br>
-				<button type="button" data-query="Infinity">★×5以下で早い</button>
-				<button type="button" data-query="Infinity">★×5以下で普通</button>
-				<button type="button" data-query="Infinity">★×5以下で遅い</button>
+				<button type="button" data-query="(%level% <= 5) && (%bpm_low% >= 200 || %bpm_high% >= 200)">★×5以下で早い</button>
+				<button type="button" data-query="(%level% <= 5) && ((%bpm_low% >= 170 || %bpm_high% >= 170) && (%bpm_low% <= 200 || %bpm_high% <= 200))">★×5以下で普通</button>
+				<button type="button" data-query="(%level% <= 5) && (%bpm_low% <= 170 || %bpm_high% <= 170)">★×5以下で遅い</button>
 			</section>
 			
 			<section class="times_selector">
-				<button type="button" data-times="Infinity">無限</button>
+				<button type="button" data-times="Inf">無限</button>
 				<button type="button" data-times="30">30曲</button>
 				<button type="button" data-times="20">20曲</button>
 				<button type="button" data-times="10">10曲</button>
@@ -70,8 +70,8 @@
 			</section>
 			
 			<section class="info_view">
-				<span class="title">ほげｈごえほげほｇへおげ</span>
-				<span class="songs_num">1 / 20</span>
+				<span class="title"></span>
+				<span class="songs_num"></span>
 			</section>
 		</article>
 		<script type="text/javascript" src="js/renderer.js"></script>
