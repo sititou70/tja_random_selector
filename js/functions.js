@@ -101,6 +101,7 @@ var start_random_select = function(query, times){
 		
 		var info = {
 			title: this_.random_songs[this_.i].title,
+			dir_info: this_.random_songs[this_.i].path.replace(taikojiro_dir_path, "").match(/^\/(.*)\/.*?\.tja$/, "")[1].replace(/\//g, " > "),
 			level: this_.random_songs[this_.i].level,
 			bpm_info: (this_.random_songs[this_.i].bpm_low == this_.random_songs[this_.i].bpm_high) ? this_.random_songs[this_.i].bpm_low + "BPM" : this_.random_songs[this_.i].bpm_low + " - " + this_.random_songs[this_.i].bpm_high + "BPM",
 			songs_num: (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times)

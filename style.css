@@ -47,8 +47,15 @@ button{
 	display: block;
 	margin: 50px 10px 0 10px;
 	font-size: 200%;
+	line-height: 100%;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
+}
+
+.info_view > .dir_info{
+	display: block;
+	margin: 0;
+	font-size: 80%;
 }
 
 .info_view > .songs_num{
