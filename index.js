@@ -28,7 +28,8 @@ App.on("ready", function(){
 });
 
 //ipcハンドラを定義
-ipcMain.on("hoge", function(event){
+ipcMain.on("start_random_select", function(event, query, times){
+	functions.start_random_select(mainWindow.webContents, query, times, App);
 });
 
 //メニューバーを定義
@@ -46,3 +47,5 @@ var menu = Menu.buildFromTemplate([
 	}
 ]);
 Menu.setApplicationMenu(menu);
+
+functions.init(__dirname.replace(__dirname.match(/^.*\\(.*?\\?)$/)[1], ""));
