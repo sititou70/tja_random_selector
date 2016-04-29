@@ -16,6 +16,10 @@ $(".times_selector > button").click(function(){
 var selector_query = "";
 
 //ipc handlers
+ipcRenderer.on("alert", function(event, text){
+	alert(text);
+});
+
 ipcRenderer.on("set_info", function(event, title, songs_num){
 	$(".info_view > .title").html(title);
 	$(".info_view > .songs_num").html(songs_num);

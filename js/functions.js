@@ -89,15 +89,17 @@ var start_random_select = function(webContents, query, times, App){
 	
 	var run_tja;
 	run_tja = function(this_){
+		if(this_.i >= this_.times || this_.i >= this_.random_songs.length){
+			if(this_.i >= this_.random_songs.length)this_.webContents.send("alert", "該当する全ての曲をプレイしました")
+			this_.webContents.send("reset_view");
+			return;
+		}
+		
 		this_.webContents.send("set_info", this_.random_songs[this_.i].title, (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times));
 		var command = '"' + taikojiro_dir_path + 'taikojiro.exe" ' + this_.random_songs[this_.i].path;
 		command = command.replace(/\//g, "\\");
 		exec(command, (function(this_){
 			return function(){
-				if(this_.i >= this_.times - 1){
-					this_.webContents.send("reset_view");
-					return;
-				}
 				this_.i++;
 				run_tja(this_);
 			}
