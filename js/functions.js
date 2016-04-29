@@ -12,7 +12,6 @@ var init = function(params){
 	webContents = params.webContents;
 	
 	songs_info = get_files(taikojiro_dir_path, ".*\.tja$");
-	
 	songs_info.forEach(function(elem, i){
 		songs_info[i] = get_songs_info(elem);
 	});
@@ -94,8 +93,8 @@ var start_random_select = function(query, times){
 	var run_tja;
 	run_tja = function(this_){
 		if(this_.i >= this_.times || this_.i >= this_.random_songs.length){
-			if(this_.i >= this_.random_songs.length)this_.webContents.send("alert", "該当する全ての曲をプレイしました")
-			this_.webContents.send("reset_view");
+			if(this_.i >= this_.random_songs.length)webContents.send("alert", "該当する全ての曲をプレイしました")
+			webContents.send("reset_view");
 			return;
 		}
 		
@@ -106,7 +105,7 @@ var start_random_select = function(query, times){
 			bpm_info: (this_.random_songs[this_.i].bpm_low == this_.random_songs[this_.i].bpm_high) ? this_.random_songs[this_.i].bpm_low + "BPM" : this_.random_songs[this_.i].bpm_low + " - " + this_.random_songs[this_.i].bpm_high + "BPM",
 			songs_num: (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times)
 		};
-		this_.webContents.send("set_info", info);
+		webContents.send("set_info", info);
 		var command = '"' + taikojiro_dir_path + 'taikojiro.exe" "' + this_.random_songs[this_.i].path + '"';
 		command = command.replace(/\//g, "\\");
 		exec(command, (function(this_){
@@ -117,13 +116,11 @@ var start_random_select = function(query, times){
 		})(this_));
 	}
 	
-	var params = {};
-	params.i = 0;
-	params.times = times;
-	params.random_songs = random_songs;
-	params.webContents = webContents;
-	params.App = App;
-	run_tja(params);
+	run_tja({
+		i: 0,
+		times: times,
+		random_songs: random_songs
+	});
 };
 
 exports.init = init;
