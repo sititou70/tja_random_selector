@@ -36,3 +36,7 @@ button{
 .times_selector{
 	display: none;
 }
+
+.info_view{
+	display: none;
+}

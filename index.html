@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="style.css">
 		<script type="text/javascript">
 			window.jQuery = window.$ = require('./js/jquery-2.2.3.min.js');
-			//require('remote').getCurrentWindow().toggleDevTools();
+			require('remote').getCurrentWindow().toggleDevTools();
 		</script>
 	</head>
 	<body>
@@ -67,6 +67,12 @@
 				<button type="button" data-times="7">7曲</button>
 				<button type="button" data-times="5">5曲</button>
 				<button type="button" data-times="3">3曲</button>
+			</section>
+			
+			<section class="info_view">
+				<span class="title"></span>
+				<br>
+				<span class="songs_num"></span>曲目
 			</section>
 		</article>
 		<script type="text/javascript" src="js/renderer.js"></script>
