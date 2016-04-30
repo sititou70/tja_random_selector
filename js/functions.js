@@ -1,5 +1,5 @@
 var fs = require("fs");
-var exec = require('child_process').exec;
+var exec = require("child_process").exec;
 var songs_info = [];
 var taikojiro_dir_path = "";
 var App = null;
