@@ -4,6 +4,9 @@
 	"main": "index.js",
 	"scripts": {
 	},
+	"dependencies": {
+		"iconv": "*"
+	},
 	"author": "sititou70",
 	"license": "MIT"
 }

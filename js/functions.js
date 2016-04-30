@@ -43,7 +43,7 @@ var get_songs_info = function(path){
 		return e.code;
 	}
 	
-	var levels = content.match(/[\s\S]LEVEL:[0-9]+[\s\S]/g);
+	var levels = content.match(/(\r|\n|\r\n)LEVEL:[0-9]+(\r|\n|\r\n)/g);
 	var max_level = -1;
 	
 	levels.forEach(function(obj){
@@ -52,7 +52,7 @@ var get_songs_info = function(path){
 	});
 	
 	
-	var bpms = content.match(/[\s\S](BPM:|#BPMCHANGE )[0-9]+[\s\S]/g);
+	var bpms = content.match(/(\r|\n|\r\n)(BPM:|#BPMCHANGE )[0-9]+.*?(\r|\n|\r\n)/g);
 	var bpm_high = -1;
 	var bpm_low = 9999999;
 	

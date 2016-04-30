@@ -44,7 +44,7 @@ button{
 }
 
 .info_view > .title{
-	display: block;
+	display: inline-block;
 	margin: 50px 10px 0 10px;
 	font-size: 200%;
 	line-height: 100%;
@@ -53,8 +53,8 @@ button{
 }
 
 .info_view > .dir_info{
-	display: block;
-	margin: 0;
+	display: inline-block;
+	margin: 0 0 20px 0;
 	font-size: 80%;
 }
 

@@ -37,8 +37,8 @@ App.on("ready", function(){
 	
 	//functionsをinit
 	functions.init({
-		taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
-		//taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\?$/)[1],
+		//taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
+		taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\?$/)[1],
 		App: App,
 		webContents: mainWindow.webContents,
 	});
