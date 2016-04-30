@@ -20,10 +20,10 @@ App.on("ready", function(){
 	// メイン画面の表示。ウィンドウの幅、高さを指定できる
 	var size = require('screen').getPrimaryDisplay().size;
 	mainWindow = new BrowserWindow({
-		width: 600,
-		height: 375,
-		x: size.width - 600,
-		y: size.height - 410,
+		width: 700,
+		height: 437,
+		x: size.width - 700,
+		y: size.height - 480,
 		resizable: false,
 		center: true,
 		autoHideMenuBar: true
@@ -46,6 +46,15 @@ App.on("ready", function(){
 //ipcハンドラを定義
 ipcMain.on("start_random_select", function(event, query, times){
 	functions.start_random_select(query, times);
+});
+
+ipcMain.on("get_songs_num", function(event, querys){
+	var nums = [];
+	querys.forEach(function(obj){
+		nums.push(functions.get_songs_num(obj));
+	});
+	
+	event.returnValue = nums;
 });
 
 //メニューバーを定義

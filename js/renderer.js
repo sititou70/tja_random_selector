@@ -1,5 +1,23 @@
 var ipcRenderer = require('electron').ipcRenderer
 
+//functions
+var get_songs_num = function(){
+	var buttons = $(".select_category > button");
+	
+	var querys = [];
+	buttons.each(function(i, obj){
+		querys.push($(obj).data("query"));
+	});
+	
+	var nums = ipcRenderer.sendSync("get_songs_num", querys);
+	
+	console.log(nums);
+	
+	buttons.each(function(i, obj){
+		$(obj).text($(obj).text() + "[" + nums[i] + "]");
+	});
+}
+
 //set event handler
 $(".select_category > button").click(function(){
 	selector_query = $(this).data("query");
@@ -32,4 +50,6 @@ ipcRenderer.on("reset_view", function(event){
 	$(".info_view").fadeOut(500);
 	$(".select_category").fadeIn(500);
 });
+
+get_songs_num();
 

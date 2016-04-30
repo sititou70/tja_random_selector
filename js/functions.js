@@ -34,6 +34,7 @@ var get_files = function(dir, grep){
 	return ans;
 };
 
+//TJAのパスから曲の情報を得る
 var get_songs_info = function(path){
 	var content;
 	try{
@@ -71,6 +72,16 @@ var get_songs_info = function(path){
 	
 	return info;
 };
+
+//クエリに一致した曲数を得る
+var get_songs_num = function(query){
+	var num = 0;
+	songs_info.forEach(function(obj){
+		if(eval(query.replace(/%level%/g, obj.level).replace(/%bpm_low%/g, obj.bpm_low).replace(/%bpm_high%/g, obj.bpm_high)))num++;
+	});
+	
+	return num;
+}
 
 //ランダムセレクトをスタート
 var start_random_select = function(query, times){
@@ -125,5 +136,6 @@ var start_random_select = function(query, times){
 
 exports.init = init;
 exports.get_files = get_files;
+exports.get_songs_num = get_songs_num;
 exports.start_random_select = start_random_select;
 
