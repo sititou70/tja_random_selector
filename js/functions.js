@@ -1,5 +1,6 @@
 var fs = require("fs");
 var exec = require("child_process").exec;
+var encoding = require("encoding-japanese");
 var songs_info = [];
 var taikojiro_dir_path = "";
 var App = null;
@@ -38,11 +39,17 @@ var get_files = function(dir, grep){
 var get_songs_info = function(path){
 	var content;
 	try{
-		content = fs.readFileSync(path).toString();
+		var unicodeArray = encoding.convert(fs.readFileSync(path), {
+			from: 'SJIS',
+			to: 'UNICODE'
+		});
+		content = encoding.codeToString(unicodeArray);
 	}catch(e){
 		return e.code;
 	}
 	
+	var title = content.match(/^TITLE:(.*?)(\r|\n|\r\n)/)[1];
+	var subtitle = content.match(/(\r|\n|\r\n)SUBTITLE:(--)?(.*?)(\r|\n|\r\n)/)[3];
 	var levels = content.match(/(\r|\n|\r\n)LEVEL:[0-9]+(\r|\n|\r\n)/g);
 	var max_level = -1;
 	
@@ -64,7 +71,8 @@ var get_songs_info = function(path){
 	
 	var info = {
 		path: path,
-		title: path.match(/^.*\/(.*?)\.tja$/)[1],
+		title: title,
+		subtitle: subtitle,
 		level: max_level,
 		bpm_high: bpm_high,
 		bpm_low: bpm_low
@@ -111,6 +119,7 @@ var start_random_select = function(query, times){
 		
 		var info = {
 			title: this_.random_songs[this_.i].title,
+			subtitle: this_.random_songs[this_.i].subtitle,
 			dir_info: this_.random_songs[this_.i].path.replace(taikojiro_dir_path, "").match(/^\/(.*)\/.*?\.tja$/, "")[1].replace(/\//g, " > "),
 			level: this_.random_songs[this_.i].level,
 			bpm_info: (this_.random_songs[this_.i].bpm_low == this_.random_songs[this_.i].bpm_high) ? this_.random_songs[this_.i].bpm_low + "BPM" : this_.random_songs[this_.i].bpm_low + " - " + this_.random_songs[this_.i].bpm_high + "BPM",

@@ -5,7 +5,7 @@
 	"scripts": {
 	},
 	"dependencies": {
-		"iconv": "*"
+		"encoding-japanese": "*"
 	},
 	"author": "sititou70",
 	"license": "MIT"

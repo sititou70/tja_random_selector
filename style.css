@@ -52,6 +52,12 @@ button{
 	overflow-wrap: break-word;
 }
 
+.info_view > .subtitle{
+	display: inline-block;
+	font-size: 90%;
+	margin: 0;
+}
+
 .info_view > .dir_info{
 	display: inline-block;
 	margin: 0 0 20px 0;

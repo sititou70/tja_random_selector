@@ -40,6 +40,7 @@ ipcRenderer.on("alert", function(event, text){
 
 ipcRenderer.on("set_info", function(event, info){
 	$(".info_view > .title").html(info.title);
+	$(".info_view > .subtitle").html(info.subtitle);
 	$(".info_view > .dir_info").html(info.dir_info);
 	$(".info_view > .level").html(info.level);
 	$(".info_view > .bpm_info").html(info.bpm_info);
