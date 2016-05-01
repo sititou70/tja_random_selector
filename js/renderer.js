@@ -1,7 +1,8 @@
 var ipcRenderer = require('electron').ipcRenderer
+//require('remote').getCurrentWindow().toggleDevTools();
 
 //functions
-var get_songs_num = function(){
+var set_songs_num = function(){
 	var buttons = $(".select_category > button");
 	
 	var querys = [];
@@ -10,8 +11,6 @@ var get_songs_num = function(){
 	});
 	
 	var nums = ipcRenderer.sendSync("get_songs_num", querys);
-	
-	console.log(nums);
 	
 	buttons.each(function(i, obj){
 		$(obj).text($(obj).text() + "[" + nums[i] + "]");
@@ -38,6 +37,10 @@ ipcRenderer.on("alert", function(event, text){
 	alert(text);
 });
 
+ipcRenderer.on("set_songs_num", function(event){
+	set_songs_num();
+});
+
 ipcRenderer.on("set_info", function(event, info){
 	$(".info_view > .title").html(info.title);
 	$(".info_view > .subtitle").html(info.subtitle);
@@ -52,5 +55,13 @@ ipcRenderer.on("reset_view", function(event){
 	$(".select_category").fadeIn(500);
 });
 
-get_songs_num();
+ipcRenderer.on("add_ignore_tja_list", function(event, string){
+	$(".ignore_tja_list").next().css({
+		display: "none"
+	});
+	
+	var new_li = $("<li>");
+	new_li.text(string);
+	$(".ignore_tja_list").append(new_li);
+});
 

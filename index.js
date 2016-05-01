@@ -35,12 +35,16 @@ App.on("ready", function(){
 		mainWindow = null;
 	});
 	
-	//functionsをinit
-	functions.init({
-		taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
-		//taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\?$/)[1],
-		App: App,
-		webContents: mainWindow.webContents,
+	//rendererプロセスのJSの実行が完了した
+	mainWindow.webContents.on("did-finish-load", function(){
+		//functionsをinit
+		functions.init({
+			taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
+			//taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\?$/)[1],
+			tjaignore_path: __dirname + "\\tjaignore.txt",
+			App: App,
+			webContents: mainWindow.webContents
+		});
 	});
 });
 

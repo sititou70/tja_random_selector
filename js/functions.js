@@ -13,9 +13,19 @@ var init = function(params){
 	webContents = params.webContents;
 	
 	songs_info = get_files(taikojiro_dir_path, ".*\.tja$");
-	songs_info.forEach(function(elem, i){
-		songs_info[i] = get_songs_info(elem);
+	songs_info.forEach(function(obj, i){
+		songs_info[i] = get_songs_info(obj);
 	});
+	
+	var tjaignore = fs.readFileSync(params.tjaignore_path).toString().replace(/(\r|\n|\t)/g, "");
+	for (var i = songs_info.length - 1; i >= 0; i--) {
+		if(eval_songs_query(tjaignore, songs_info[i])){
+			webContents.send("add_ignore_tja_list", songs_info[i].title + "(" + songs_info[i].path.replace(taikojiro_dir_path, "").match(/^\/(.*)\/.*?\.tja$/, "")[1].replace(/\//g, " > ") + ")");
+			songs_info.splice(i, 1);
+		}
+	}
+	
+	webContents.send("set_songs_num");
 };
 
 //ファイルの一覧を配列で取得する
@@ -81,11 +91,16 @@ var get_songs_info = function(path){
 	return info;
 };
 
+var eval_songs_query = function(query, song_info){
+	var escaped_title = song_info.title.replace(/\\/g, "\\\\").replace(/'/g, "\\\'").replace(/"/g, '\\\"');
+	return eval(query.replace(/%title%/g, escaped_title).replace(/%level%/g, song_info.level).replace(/%bpm_low%/g, song_info.bpm_low).replace(/%bpm_high%/g, song_info.bpm_high));
+}
+
 //クエリに一致した曲数を得る
 var get_songs_num = function(query){
 	var num = 0;
 	songs_info.forEach(function(obj){
-		if(eval(query.replace(/%level%/g, obj.level).replace(/%bpm_low%/g, obj.bpm_low).replace(/%bpm_high%/g, obj.bpm_high)))num++;
+		if(eval_songs_query(query, obj))num++;
 	});
 	
 	return num;
@@ -96,7 +111,7 @@ var start_random_select = function(query, times){
 	if(times == "Inf")times = Infinity;
 	var random_songs = [];
 	songs_info.forEach(function(obj){
-		if(eval(query.replace(/%level%/g, obj.level).replace(/%bpm_low%/g, obj.bpm_low).replace(/%bpm_high%/g, obj.bpm_high))){
+		if(eval_songs_query(query, obj)){
 			random_songs.push(obj);
 		}
 	});

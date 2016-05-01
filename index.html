@@ -6,7 +6,6 @@
 		<link rel="stylesheet" href="style.css">
 		<script type="text/javascript">
 			window.jQuery = window.$ = require('./js/jquery-2.2.3.min.js');
-			// /require('remote').getCurrentWindow().toggleDevTools();
 		</script>
 	</head>
 	<body>
@@ -57,6 +56,12 @@
 				<button type="button" data-query="(%level% <= 5) && (%bpm_low% >= 200 || %bpm_high% >= 200)">★×5以下で早い</button>
 				<button type="button" data-query="(%level% <= 5) && ((%bpm_low% >= 170 || %bpm_high% >= 170) && (%bpm_low% <= 200 || %bpm_high% <= 200))">★×5以下で普通</button>
 				<button type="button" data-query="(%level% <= 5) && (%bpm_low% <= 170 || %bpm_high% <= 170)">★×5以下で遅い</button>
+			</section>
+			
+			<section>
+				<h2>除外されたTJAファイル</h2>
+				<ui class="ignore_tja_list"></ui>
+				<p>無し</p>
 			</section>
 			
 			<section class="times_selector">
