@@ -21,6 +21,7 @@ var set_songs_num = function(){
 $(".select_category > button").click(function(){
 	selector_query = $(this).data("query");
 	$(".select_category").fadeOut(500);
+	$(".ignore_tja_list").fadeOut(500);
 	$(".times_selector").fadeIn(500);
 });
 
@@ -53,15 +54,16 @@ ipcRenderer.on("set_info", function(event, info){
 ipcRenderer.on("reset_view", function(event){
 	$(".info_view").fadeOut(500);
 	$(".select_category").fadeIn(500);
+	$(".ignore_tja_list").fadeIn(500);
 });
 
 ipcRenderer.on("add_ignore_tja_list", function(event, string){
-	$(".ignore_tja_list").next().css({
+	$(".ignore_tja_list > p").css({
 		display: "none"
 	});
 	
 	var new_li = $("<li>");
 	new_li.text(string);
-	$(".ignore_tja_list").append(new_li);
+	$(".ignore_tja_list > ul").append(new_li);
 });
 
