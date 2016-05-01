@@ -19,12 +19,11 @@ tjaignore.txtは、tja_random_selector.exeから見て`./resources/app/`にあ�
 
 除外したいTJAの条件式（JavaScript）を *UTF-8で* 記述します。改行、タブ文字は全て無視されます。
 
-tjaignore.txtでは、
+tjaignore.txtでは、以下のキーワードが使えます。
 * `%title%`（曲のタイトル、文字列）
 * `%level%`（曲のレベル、数値）
 * `%bpm_high%`（曲の最高BPM、数値）
 * `%bpm_low%`（曲の最低BPM、数値）
-のキーワードが使えます。
 
 アプリは、条件式を全てのTJAに対して評価し、真となった曲をランダム選曲の対象から除外します。
 
