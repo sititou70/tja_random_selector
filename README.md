@@ -15,6 +15,7 @@
 ## tjaignore.txt
 tjaignore.txtは、tja_random_selector.exeから見て`./resources/app/`にあります。
 これは、ランダム選曲の対象から除外するTJAを指定するためのファイルです。
+除外されたTJAの情報は、アプリ起動直後の画面の一番下に表示されます。
 
 除外したいTJAの条件式（JavaScript）をUTF-8で記述します。改行、タブ文字は全て無視されます。
 
