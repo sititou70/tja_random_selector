@@ -1,6 +1,7 @@
 'use strict';
 
 var App = require("app");
+var exec = require("child_process").exec;
 var Menu = require("menu");
 var BrowserWindow = require("browser-window");
 var ipcMain = require("electron").ipcMain;
@@ -60,6 +61,12 @@ ipcMain.on("get_songs_num", function(event, querys){
 	});
 	
 	event.returnValue = nums;
+});
+
+ipcMain.on("restart", function(event){
+	exec('taskkill /f /im "taikojiro.exe"');
+	exec('call "' + __dirname.match(/^(.*\\).*?\\.*?\\?$/)[1] + "\\tja_random_selector.exe" + '"');
+	App.quit();
 });
 
 //メニューバーを定義

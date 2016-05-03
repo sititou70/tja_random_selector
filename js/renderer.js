@@ -31,6 +31,10 @@ $(".times_selector > button").click(function(){
 	$(".info_view").fadeIn(500);
 });
 
+$(window).keydown(function(key){
+	if(key.keyCode == 27)ipcRenderer.send("restart");
+});
+
 var selector_query = "";
 
 //ipc handlers
