@@ -69,3 +69,14 @@ button{
 	right: 5px;
 	bottom: 5px;
 }
+
+.info_view > .skip_song{
+	font-size: 90%;
+	padding: 3px;
+}
+
+.info_view > .skip_and_add_tjaignore{
+	font-size: 70%;
+	padding: 3px;
+}
+

@@ -10,7 +10,7 @@ var set_songs_num = function(){
 		querys.push($(obj).data("query"));
 	});
 	
-	var nums = ipcRenderer.sendSync("get_songs_num", querys);
+	var nums = ipcRenderer.sendSync("get_all_songs_num", querys);
 	
 	buttons.each(function(i, obj){
 		$(obj).text($(obj).text() + "[" + nums[i] + "]");
@@ -29,6 +29,14 @@ $(".times_selector > button").click(function(){
 	ipcRenderer.send("start_random_select", selector_query, $(this).data("times"));
 	$(".times_selector").fadeOut(500);
 	$(".info_view").fadeIn(500);
+});
+
+$(".info_view > .skip_song").click(function(){
+	ipcRenderer.send("skip_song");
+});
+
+$(".info_view > .skip_and_add_tjaignore").click(function(){
+	ipcRenderer.send("skip_and_add_tjaignore");
 });
 
 $(window).keydown(function(key){

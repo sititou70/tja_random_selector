@@ -3,14 +3,17 @@ var exec = require("child_process").exec;
 var encoding = require("encoding-japanese");
 var songs_info = [];
 var taikojiro_dir_path = "";
+var tjaignore_path = "";
 var App = null;
 var webContents = null;
+var run_tja_params = null;
 
 //初期化処理
 var init = function(params){
 	taikojiro_dir_path = params.taikojiro_dir_path;
 	App = params.App;
 	webContents = params.webContents;
+	tjaignore_path = params.tjaignore_path;
 	
 	songs_info = get_files(taikojiro_dir_path, ".*\.tja$");
 	songs_info.forEach(function(obj, i){
@@ -91,9 +94,14 @@ var get_songs_info = function(path){
 	return info;
 };
 
+//エスケープ文字をエスケープします
+var escape = function(work_string){
+	return work_string.replace(/\\/g, "\\\\").replace(/'/g, "\\\'").replace(/"/g, '\\\"');;
+}
+
+//曲をクエリで評価します
 var eval_songs_query = function(query, song_info){
-	var escaped_title = song_info.title.replace(/\\/g, "\\\\").replace(/'/g, "\\\'").replace(/"/g, '\\\"');
-	return eval(query.replace(/%title%/g, escaped_title).replace(/%level%/g, song_info.level).replace(/%bpm_low%/g, song_info.bpm_low).replace(/%bpm_high%/g, song_info.bpm_high));
+	return eval(query.replace(/%title%/g, escape(song_info.title)).replace(/%subtitle%/g, escape(song_info.subtitle)).replace(/%level%/g, song_info.level).replace(/%bpm_low%/g, song_info.bpm_low).replace(/%bpm_high%/g, song_info.bpm_high));
 }
 
 //クエリに一致した曲数を得る
@@ -151,15 +159,42 @@ var start_random_select = function(query, times){
 		})(this_));
 	}
 	
-	run_tja({
+	run_tja_params = {
 		i: 0,
 		times: times,
 		random_songs: random_songs
-	});
+	};
+	
+	run_tja(run_tja_params);
 };
+
+var skip_song = function(){
+	run_tja_params.random_songs.splice(run_tja_params.i, 1);
+	run_tja_params.i--;
+	exec('taskkill /f /im "taikojiro.exe"');
+};
+
+var get_all_songs_num = function(querys){
+	var nums = [];
+	querys.forEach(function(obj){
+		nums.push(get_songs_num(obj));
+	});
+	
+	return nums;
+}
+
+var skip_and_add_tjaignore = function(){
+	var data = " || \r\n(" + '"%title%" == "' + escape(run_tja_params.random_songs[run_tja_params.i].title) + '" && "%subtitle%" == "' + escape(run_tja_params.random_songs[run_tja_params.i].subtitle) + '" && %level% == ' + run_tja_params.random_songs[run_tja_params.i].level + " && %bpm_high% == " + run_tja_params.random_songs[run_tja_params.i].bpm_high + " && %bpm_low% == " + run_tja_params.random_songs[run_tja_params.i].bpm_low + ")";
+	fs.appendFileSync(tjaignore_path, data, "utf8");
+	
+	skip_song();
+}
 
 exports.init = init;
 exports.get_files = get_files;
 exports.get_songs_num = get_songs_num;
 exports.start_random_select = start_random_select;
+exports.skip_song = skip_song;
+exports.get_all_songs_num = get_all_songs_num;
+exports.skip_and_add_tjaignore = skip_and_add_tjaignore;
 

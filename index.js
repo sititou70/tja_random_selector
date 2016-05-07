@@ -54,13 +54,16 @@ ipcMain.on("start_random_select", function(event, query, times){
 	functions.start_random_select(query, times);
 });
 
-ipcMain.on("get_songs_num", function(event, querys){
-	var nums = [];
-	querys.forEach(function(obj){
-		nums.push(functions.get_songs_num(obj));
-	});
-	
-	event.returnValue = nums;
+ipcMain.on("get_all_songs_num", function(event, querys){
+	event.returnValue = functions.get_all_songs_num(querys);
+});
+
+ipcMain.on("skip_song", function(event, querys){
+	functions.skip_song();
+});
+
+ipcMain.on("skip_and_add_tjaignore", function(event, querys){
+	functions.skip_and_add_tjaignore();
 });
 
 ipcMain.on("restart", function(event){
