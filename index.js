@@ -1,6 +1,7 @@
 'use strict';
 
 var App = require("app");
+var fs = require("fs");
 var exec = require("child_process").exec;
 var Menu = require("menu");
 var BrowserWindow = require("browser-window");
@@ -19,19 +20,25 @@ App.on("window-all-closed", function(){
 // Electronの初期化完了後に実行
 App.on("ready", function(){
 	// メイン画面の表示。ウィンドウの幅、高さを指定できる
-	var size = require('screen').getPrimaryDisplay().size;
+	var window_bounds = JSON.parse(fs.readFileSync(__dirname + "\\window_bounds.json"));
 	mainWindow = new BrowserWindow({
-		width: 700,
-		height: 437,
-		x: size.width - 700,
-		y: size.height - 480,
-		resizable: false,
+		width: window_bounds.width,
+		height: window_bounds.height,
+		x: window_bounds.x,
+		y: window_bounds.y,
+		resizable: true,
 		center: true,
 		autoHideMenuBar: true
 	});
 	mainWindow.loadURL("file://" + __dirname + "/index.html");
 	
-	// ウィンドウが閉じられたらアプリも終了
+	//ウインドウが閉じる前にサイズと位置を記録する
+	mainWindow.on("close", function(){
+		var window_bounds = JSON.stringify(mainWindow.getBounds());
+		fs.writeFileSync(__dirname + "\\window_bounds.json", window_bounds);
+	});
+	
+	//ウィンドウが閉じられたらアプリも終了
 	mainWindow.on("closed", function(){
 		mainWindow = null;
 	});
