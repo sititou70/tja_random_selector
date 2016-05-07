@@ -1,4 +1,6 @@
 body{
+	margin: 0;
+	padding: 10px;
 	color: #ddd;
 	font-size: 18px;
 	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
@@ -13,21 +15,24 @@ body{
 h1{
 	font-size: 120%;
 	text-align: center;
+	margin: 5vh 0;
 }
 
 h2{
-	margin: 30px 0 10px 0;
+	margin: 10px 0;
 }
 
 button{
 	padding: 10px;
 	margin: 3px;
-	font-size: 100%;
+	font-size: calc(1vw + 10px);
+	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
 }
 
 
 .select_category{
-	margin: 5px;
+	margin: 10px 0;
+	padding: 5px;
 }
 
 .times_selector{
@@ -45,8 +50,8 @@ button{
 
 .info_view > .title{
 	display: inline-block;
-	margin: 30px 10px 0 10px;
-	font-size: 200%;
+	margin: 3vh 10px 0 10px;
+	font-size: calc(1.5vw + 120%);
 	line-height: 100%;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -54,14 +59,25 @@ button{
 
 .info_view > .subtitle{
 	display: inline-block;
-	font-size: 90%;
+	font-size: calc(1vw + 70%);
 	margin: 0;
+	line-height: 100%;
 }
 
 .info_view > .dir_info{
 	display: inline-block;
-	margin: 0 0 15px 0;
-	font-size: 80%;
+	margin: 0 0 5vh 0;
+	font-size: calc(1vw + 30%);
+}
+
+.info_view > .level{
+	font-size: calc(1vw + 70%);
+}
+
+.info_view > .bpm_info{
+	display: inline-block;
+	margin-bottom: 5vh;
+	font-size: calc(1vw + 70%);
 }
 
 .info_view > .songs_num{
@@ -71,17 +87,12 @@ button{
 }
 
 .info_view > .skip_song{
-	font-size: 90%;
+	font-size: calc(1vw + 70%);
 	padding: 3px;
 }
 
-.info_view > .bpm_info{
-	display: inline-block;
-	margin-bottom: 15px;
-}
-
 .info_view > .skip_and_add_tjaignore{
-	font-size: 70%;
+	font-size: calc(1vw + 50%);
 	padding: 3px;
 }
 
