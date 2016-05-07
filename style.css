@@ -45,7 +45,7 @@ button{
 
 .info_view > .title{
 	display: inline-block;
-	margin: 50px 10px 0 10px;
+	margin: 30px 10px 0 10px;
 	font-size: 200%;
 	line-height: 100%;
 	word-wrap: break-word;
@@ -60,7 +60,7 @@ button{
 
 .info_view > .dir_info{
 	display: inline-block;
-	margin: 0 0 20px 0;
+	margin: 0 0 15px 0;
 	font-size: 80%;
 }
 
@@ -73,6 +73,11 @@ button{
 .info_view > .skip_song{
 	font-size: 90%;
 	padding: 3px;
+}
+
+.info_view > .bpm_info{
+	display: inline-block;
+	margin-bottom: 15px;
 }
 
 .info_view > .skip_and_add_tjaignore{
