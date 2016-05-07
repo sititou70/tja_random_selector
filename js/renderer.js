@@ -20,15 +20,15 @@ var set_songs_num = function(){
 //set event handler
 $(".select_category > button").click(function(){
 	selector_query = $(this).data("query");
-	$(".select_category").fadeOut(500);
-	$(".ignore_tja_list").fadeOut(500);
-	$(".times_selector").fadeIn(500);
+	$(".select_category").fadeOut(300);
+	$(".ignore_tja_list").fadeOut(300);
+	$(".times_selector").fadeIn(300);
 });
 
 $(".times_selector > button").click(function(){
 	ipcRenderer.send("start_random_select", selector_query, $(this).data("times"));
-	$(".times_selector").fadeOut(500);
-	$(".info_view").fadeIn(500);
+	$(".times_selector").fadeOut(300);
+	$(".info_view").fadeIn(300);
 });
 
 $(".info_view > .skip_song").click(function(){
@@ -40,7 +40,23 @@ $(".info_view > .skip_and_add_tjaignore").click(function(){
 });
 
 $(window).keydown(function(key){
-	if(key.keyCode == 27)ipcRenderer.send("restart");
+	if(key.keyCode == 27){
+		if($(".select_category").css("display") == "block"){
+			ipcRenderer.send("quit");
+		}
+		if($(".times_selector").css("display") == "block"){
+			$(".times_selector").fadeOut(300);
+			$(".select_category").fadeIn(300);
+			$(".ignore_tja_list").fadeIn(300);
+		}
+		if($(".info_view").css("display") == "block"){
+			ipcRenderer.send("escape_run_tja");
+			
+			$(".info_view").fadeOut(300);
+			$(".select_category").fadeIn(300);
+			$(".ignore_tja_list").fadeIn(300);
+		}
+	};
 });
 
 var selector_query = "";
@@ -64,9 +80,9 @@ ipcRenderer.on("set_info", function(event, info){
 });
 
 ipcRenderer.on("reset_view", function(event){
-	$(".info_view").fadeOut(500);
-	$(".select_category").fadeIn(500);
-	$(".ignore_tja_list").fadeIn(500);
+	$(".info_view").fadeOut(300);
+	$(".select_category").fadeIn(300);
+	$(".ignore_tja_list").fadeIn(300);
 });
 
 ipcRenderer.on("add_ignore_tja_list", function(event, string){

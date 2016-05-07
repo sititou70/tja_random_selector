@@ -41,7 +41,6 @@ App.on("ready", function(){
 		//functionsをinit
 		functions.init({
 			taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
-			//taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\?$/)[1],
 			tjaignore_path: __dirname + "\\tjaignore.txt",
 			App: App,
 			webContents: mainWindow.webContents
@@ -66,9 +65,11 @@ ipcMain.on("skip_and_add_tjaignore", function(event, querys){
 	functions.skip_and_add_tjaignore();
 });
 
-ipcMain.on("restart", function(event){
-	exec('taskkill /f /im "taikojiro.exe"');
-	exec('call "' + __dirname.match(/^(.*\\).*?\\.*?\\?$/)[1] + "\\tja_random_selector.exe" + '"');
+ipcMain.on("escape_run_tja", function(event){
+	functions.escape_run_tja();
+});
+
+ipcMain.on("quit", function(event){
 	App.quit();
 });
 

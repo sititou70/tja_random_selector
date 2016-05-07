@@ -181,14 +181,20 @@ var get_all_songs_num = function(querys){
 	});
 	
 	return nums;
-}
+};
 
 var skip_and_add_tjaignore = function(){
 	var data = " || \r\n(" + '"%title%" == "' + escape(run_tja_params.random_songs[run_tja_params.i].title) + '" && "%subtitle%" == "' + escape(run_tja_params.random_songs[run_tja_params.i].subtitle) + '" && %level% == ' + run_tja_params.random_songs[run_tja_params.i].level + " && %bpm_high% == " + run_tja_params.random_songs[run_tja_params.i].bpm_high + " && %bpm_low% == " + run_tja_params.random_songs[run_tja_params.i].bpm_low + ")";
 	fs.appendFileSync(tjaignore_path, data, "utf8");
 	
 	skip_song();
-}
+};
+
+var escape_run_tja = function(){
+	run_tja_params.times = -1;
+	exec('taskkill /f /im "taikojiro.exe"');
+};
+
 
 exports.init = init;
 exports.get_files = get_files;
@@ -197,4 +203,5 @@ exports.start_random_select = start_random_select;
 exports.skip_song = skip_song;
 exports.get_all_songs_num = get_all_songs_num;
 exports.skip_and_add_tjaignore = skip_and_add_tjaignore;
+exports.escape_run_tja = escape_run_tja;
 
