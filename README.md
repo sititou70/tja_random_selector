@@ -30,6 +30,7 @@ tjaignore.txtは、tja_random_selector.exeから見て`./resources/app/`にあ�
 
 tjaignore.txtでは、以下のキーワードが使えます。
 * `%title%`（曲のタイトル、文字列）
+* `%subtitle%`（曲のサブタイトル、文字列）
 * `%level%`（曲のレベル、数値）
 * `%bpm_high%`（曲の最高BPM、数値）
 * `%bpm_low%`（曲の最低BPM、数値）
