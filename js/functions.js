@@ -96,13 +96,13 @@ var get_songs_info = function(path){
 
 //エスケープ文字をエスケープします
 var escape = function(work_string){
-	return work_string.replace(/\\/g, "\\\\").replace(/'/g, "\\\'").replace(/"/g, '\\\"');;
-}
+	return work_string.replace(/\\/g, "\\\\").replace(/'/g, "\\\'").replace(/"/g, '\\\"');
+};
 
 //曲をクエリで評価します
 var eval_songs_query = function(query, song_info){
 	return eval(query.replace(/%title%/g, escape(song_info.title)).replace(/%subtitle%/g, escape(song_info.subtitle)).replace(/%level%/g, song_info.level).replace(/%bpm_low%/g, song_info.bpm_low).replace(/%bpm_high%/g, song_info.bpm_high));
-}
+};
 
 //クエリに一致した曲数を得る
 var get_songs_num = function(query){
@@ -112,7 +112,7 @@ var get_songs_num = function(query){
 	});
 	
 	return num;
-}
+};
 
 //ランダムセレクトをスタート
 var start_random_select = function(query, times){
@@ -155,9 +155,9 @@ var start_random_select = function(query, times){
 			return function(){
 				this_.i++;
 				run_tja(this_);
-			}
+			};
 		})(this_));
-	}
+	};
 	
 	run_tja_params = {
 		i: 0,
