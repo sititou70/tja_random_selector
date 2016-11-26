@@ -1,4 +1,4 @@
-var ipcRenderer = require('electron').ipcRenderer
+var ipcRenderer = require('electron').ipcRenderer;
 //require('remote').getCurrentWindow().toggleDevTools();
 
 //functions
@@ -15,7 +15,7 @@ var set_songs_num = function(){
 	buttons.each(function(i, obj){
 		$(obj).text($(obj).text() + "[" + nums[i] + "]");
 	});
-}
+};
 
 //set event handler
 $(".select_category > button").click(function(){
@@ -56,7 +56,7 @@ $(window).keydown(function(key){
 			$(".select_category").fadeIn(300);
 			$(".ignore_tja_list").fadeIn(300);
 		}
-	};
+	}
 });
 
 var selector_query = "";
