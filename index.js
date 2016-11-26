@@ -1,24 +1,21 @@
 'use strict';
 
-var App = require("app");
+const {app, Menu, BrowserWindow, ipcMain} = require("electron");
+var functions = require("./js/functions");
 var fs = require("fs");
 var exec = require("child_process").exec;
-var Menu = require("menu");
-var BrowserWindow = require("browser-window");
-var ipcMain = require("electron").ipcMain;
-var functions = require("./js/functions");
 var mainWindow = null;
 
 
 // 全てのウィンドウが閉じたら終了
-App.on("window-all-closed", function(){
+app.on("window-all-closed", function(){
 	if(process.platform != "darwin"){
-		App.quit();
+		app.quit();
 	}
 });
 
 // Electronの初期化完了後に実行
-App.on("ready", function(){
+app.on("ready", function(){
 	// メイン画面の表示。ウィンドウの幅、高さを指定できる
 	var window_bounds = JSON.parse(fs.readFileSync(__dirname + "\\window_bounds.json"));
 	mainWindow = new BrowserWindow({
@@ -49,7 +46,7 @@ App.on("ready", function(){
 		functions.init({
 			taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
 			tjaignore_path: __dirname + "\\tjaignore.txt",
-			App: App,
+			app: app,
 			webContents: mainWindow.webContents
 		});
 	});
@@ -77,7 +74,7 @@ ipcMain.on("escape_run_tja", function(event){
 });
 
 ipcMain.on("quit", function(event){
-	App.quit();
+	app.quit();
 });
 
 //メニューバーを定義
@@ -88,7 +85,7 @@ var menu = Menu.buildFromTemplate([
 			{
 				label: "Quit",
 				click: function(){
-					App.quit();
+					app.quit();
 				}
 			}
 		]

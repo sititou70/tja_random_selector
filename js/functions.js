@@ -4,14 +4,14 @@ var encoding = require("encoding-japanese");
 var songs_info = [];
 var taikojiro_dir_path = "";
 var tjaignore_path = "";
-var App = null;
+var app = null;
 var webContents = null;
 var run_tja_params = null;
 
 //初期化処理
 var init = function(params){
 	taikojiro_dir_path = params.taikojiro_dir_path;
-	App = params.App;
+	app = params.app;
 	webContents = params.webContents;
 	tjaignore_path = params.tjaignore_path;
 	

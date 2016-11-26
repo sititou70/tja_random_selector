@@ -1,4 +1,4 @@
-var ipcRenderer = require('electron').ipcRenderer;
+var ipcRenderer = require("electron").ipcRenderer;
 //require('remote').getCurrentWindow().toggleDevTools();
 
 //functions
