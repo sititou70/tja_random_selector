@@ -50,6 +50,7 @@ var get_files = function(dir, grep){
 
 //TJAのパスから曲の情報を得る
 var get_songs_info = function(path){
+	var info = {};
 	var content;
 	try{
 		var unicodeArray = encoding.convert(fs.readFileSync(path), {
@@ -58,38 +59,52 @@ var get_songs_info = function(path){
 		});
 		content = encoding.codeToString(unicodeArray);
 	}catch(e){
-		return e.code;
+		return info;
 	}
 	
-	var title = content.match(/^TITLE:(.*?)(\r|\n|\r\n)/)[1];
-	var subtitle = content.match(/(\r|\n|\r\n)SUBTITLE:(--)?(.*?)(\r|\n|\r\n)/)[3];
-	var levels = content.match(/(\r|\n|\r\n)LEVEL:[0-9]+(\r|\n|\r\n)/g);
-	var max_level = -1;
+	info.path = path;
+	info.title = content.match(/^TITLE:(.*?)(\r|\n|\r\n)/)[1];
+	info.subtitle = content.match(/(\r|\n|\r\n)SUBTITLE:(--)?(.*?)(\r|\n|\r\n)/)[3];
 	
-	levels.forEach(function(obj){
+	info.level = -1;
+	content.match(/(\r|\n|\r\n)LEVEL:[0-9]+(\r|\n|\r\n)/g).forEach((function(obj){
 		var now_level = parseInt(obj.match(/LEVEL:([0-9]+)/)[1]);
-		if(now_level > max_level)max_level = now_level;
-	});
+		if(now_level > info.level)info.level = now_level;
+	}).bind(this));
 	
+	info.bpm_high = -1;
+	info.bpm_low = 9999999;
 	
-	var bpms = content.match(/(\r|\n|\r\n)(BPM:|#BPMCHANGE )[0-9]+.*?(\r|\n|\r\n)/g);
-	var bpm_high = -1;
-	var bpm_low = 9999999;
-	
-	bpms.forEach(function(obj){
+	content.match(/(\r|\n|\r\n)(BPM:|#BPMCHANGE )[0-9]+.*?(\r|\n|\r\n)/g).forEach(function(obj){
 		var now_bpm = parseInt(obj.match(/(BPM:|#BPMCHANGE )([0-9]+)/)[2]);
-		if(now_bpm > bpm_high)bpm_high = now_bpm;
-		if(now_bpm < bpm_low)bpm_low = now_bpm;
+		if(now_bpm > info.bpm_high)info.bpm_high = now_bpm;
+		if(now_bpm < info.bpm_low)info.bpm_low = now_bpm;
 	});
 	
-	var info = {
-		path: path,
-		title: title,
-		subtitle: subtitle,
-		level: max_level,
-		bpm_high: bpm_high,
-		bpm_low: bpm_low
-	};
+	
+	info.highscore = {};
+	try{
+		var savedata = fs.readFileSync(path.replace("\.tja", "\.dat"));
+		savedata = Buffer.from(savedata.toString("hex").replace(/(([0-9]|[a-f]){2})/g, "$1,").replace(/0d,0a/g, "0a").replace(/,/g, ""), "hex");
+		for(var i = 0; i < savedata.length / 16; i++){
+			var offset = i * 16;
+			var course_int = savedata.readUInt16LE(offset + 0);
+			var course_name = ["Easy", "Normal", "Hard", "Oni", "Edit"][course_int];
+			
+			info.highscore[course_name] = {};
+			
+			info.highscore[course_name].course_int = course_int;
+			info.highscore[course_name].course_name = course_name;
+			info.highscore[course_name].score = savedata.readUInt32LE(offset + 2);
+			info.highscore[course_name].great = savedata.readUInt16LE(offset + 6);
+			info.highscore[course_name].good = savedata.readUInt16LE(offset + 8);
+			info.highscore[course_name].bad = savedata.readUInt16LE(offset + 10);
+			info.highscore[course_name].roll = savedata.readUInt16LE(offset + 12);
+			info.highscore[course_name].clearmark = ["new", "none", "silver", "red", "gold"][savedata.readUInt16LE(offset + 14)];
+		}
+	}catch(e){
+		return info;
+	}
 	
 	return info;
 };
@@ -140,15 +155,7 @@ var start_random_select = function(query, times){
 			return;
 		}
 		
-		var info = {
-			title: this_.random_songs[this_.i].title,
-			subtitle: this_.random_songs[this_.i].subtitle,
-			dir_info: this_.random_songs[this_.i].path.replace(taikojiro_dir_path, "").match(/^\/(.*)\/.*?\.tja$/, "")[1].replace(/\//g, " > "),
-			level: this_.random_songs[this_.i].level,
-			bpm_info: (this_.random_songs[this_.i].bpm_low == this_.random_songs[this_.i].bpm_high) ? this_.random_songs[this_.i].bpm_low + "BPM" : this_.random_songs[this_.i].bpm_low + " - " + this_.random_songs[this_.i].bpm_high + "BPM",
-			songs_num: (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times)
-		};
-		webContents.send("set_info", info);
+		webContents.send("set_info", this_.random_songs[this_.i], taikojiro_dir_path, (this_.i + 1) + " / " + ((this_.times == Infinity) ? "∞" : this_.times));
 		var command = '"' + taikojiro_dir_path + 'taikojiro.exe" "' + this_.random_songs[this_.i].path + '"';
 		command = command.replace(/\//g, "\\");
 		exec(command, (function(this_){

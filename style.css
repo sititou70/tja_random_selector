@@ -3,7 +3,7 @@ body{
 	padding: 10px;
 	color: #ddd;
 	font-size: 18px;
-	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+	font-family: "游明朝", YuMincho, "Hiragino Mincho ProN", "Hiragino Mincho Pro", "ＭＳ 明朝", serif;
 	background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 121, color-stop(1.00, #001116), color-stop(0.00, #003447));
 	background: -webkit-radial-gradient(50% 50%, circle, #003447, #001116);
 	background: -moz-radial-gradient(50% 50%, circle, #003447, #001116);
@@ -15,28 +15,28 @@ body{
 h1{
 	font-size: 120%;
 	text-align: center;
-	margin: 5vh 0;
+	margin: 2vh 0;
 }
 
 h2{
-	margin: 10px 0;
+	margin: 5px 0;
 }
 
 button{
-	padding: 10px;
-	margin: 3px;
-	font-size: calc(1vw + 10px);
-	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+	padding: 5px;
+	margin: 2px;
+	font-size: 100%;
+	font-family: "游明朝", YuMincho, "Hiragino Mincho ProN", "Hiragino Mincho Pro", "ＭＳ 明朝", serif;
 }
 
 
 .select_category{
-	margin: 10px 0;
+	margin: 5px 0;
 	padding: 5px;
 }
 
 .ignore_tja_list{
-	margin: 10px 0;
+	margin: 5px 0;
 	padding: 5px;
 }
 
@@ -51,11 +51,21 @@ button{
 .info_view{
 	text-align: center;
 	display: none;
+
+}
+
+.info_view > .clearmark{
+	display: inline-block;
+	width: 35px;
+	height: 30px;
+	background-image: url("clearmark.png");
+	background-repeat: no-repeat;
+	vertical-align: text-bottom;
 }
 
 .info_view > .title{
 	display: inline-block;
-	margin: 3vh 10px 0 10px;
+	margin: 1vh 5px 0 5px;
 	font-size: calc(1.5vw + 120%);
 	line-height: 100%;
 	word-wrap: break-word;
@@ -71,7 +81,7 @@ button{
 
 .info_view > .dir_info{
 	display: inline-block;
-	margin: 0 0 5vh 0;
+	margin: 0 0 1vh 0;
 	font-size: calc(1vw + 30%);
 }
 
@@ -81,7 +91,7 @@ button{
 
 .info_view > .bpm_info{
 	display: inline-block;
-	margin-bottom: 5vh;
+	margin-bottom: 1vh;
 	font-size: calc(1vw + 70%);
 }
 
@@ -101,3 +111,28 @@ button{
 	padding: 3px;
 }
 
+.clearmark-new{
+	background-position: 0px 0px;
+}
+
+.clearmark-none{
+	display: none;
+}
+
+.clearmark-silver{
+	background-position: -70px 0px;
+}
+
+.clearmark-red{
+	background-position: -105px 0px;
+}
+
+.clearmark-gold{
+	background-position: -140px 0px;
+}
+
+.info_view > .highscore{
+	display: inline-block;
+	font-size: calc(1vw + 30%);
+	margin-bottom: 5vh;
+}

@@ -1,5 +1,5 @@
 var ipcRenderer = require("electron").ipcRenderer;
-//require('remote').getCurrentWindow().toggleDevTools();
+//require("remote").getCurrentWindow().toggleDevTools();
 
 //functions
 var set_songs_num = function(){
@@ -70,13 +70,34 @@ ipcRenderer.on("set_songs_num", function(event){
 	set_songs_num();
 });
 
-ipcRenderer.on("set_info", function(event, info){
+ipcRenderer.on("set_info", function(event, info, taikojiro_dir_path, songs_num){
+	console.log(info);
 	$(".info_view > .title").html(info.title);
 	$(".info_view > .subtitle").html(info.subtitle);
-	$(".info_view > .dir_info").html(info.dir_info);
+	$(".info_view > .dir_info").html(info.path.replace(taikojiro_dir_path, "").match(/^\/(.*)\/.*?\.tja$/, "")[1].replace(/\//g, " > "))
 	$(".info_view > .level").html(info.level);
-	$(".info_view > .bpm_info").html(info.bpm_info);
-	$(".info_view > .songs_num").html(info.songs_num);
+	$(".info_view > .bpm_info").html((info.bpm_low == info.bpm_high) ? info.bpm_low + "BPM" : info.bpm_low + " - " + info.bpm_high + "BPM");
+	$(".info_view > .songs_num").html(songs_num);
+	if(info.highscore.hasOwnProperty("Oni")){
+		$(".info_view > .clearmark").removeClass("clearmark-new");
+		$(".info_view > .clearmark").removeClass("clearmark-none");
+		$(".info_view > .clearmark").removeClass("clearmark-silver");
+		$(".info_view > .clearmark").removeClass("clearmark-red");
+		$(".info_view > .clearmark").removeClass("clearmark-gold");
+		$(".info_view > .clearmark").addClass("clearmark-" + info.highscore.Oni.clearmark);
+		$(".info_view > .highscore").html("HiScore : " + info.highscore.Oni.score + "<br>" +
+		"良 : " + info.highscore.Oni.great + "  " +
+		"可 : " + info.highscore.Oni.good + "  " +
+		"不可 : " + info.highscore.Oni.bad + "  " +
+		"連打 : " + info.highscore.Oni.roll);
+	}else{
+		$(".info_view > .clearmark").removeClass("clearmark-new");
+		$(".info_view > .clearmark").removeClass("clearmark-none");
+		$(".info_view > .clearmark").removeClass("clearmark-silver");
+		$(".info_view > .clearmark").removeClass("clearmark-red");
+		$(".info_view > .clearmark").removeClass("clearmark-gold");
+		$(".info_view > .highscore").html("");
+	}
 });
 
 ipcRenderer.on("reset_view", function(event){

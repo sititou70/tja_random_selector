@@ -6,7 +6,6 @@ var fs = require("fs");
 var exec = require("child_process").exec;
 var mainWindow = null;
 
-
 // 全てのウィンドウが閉じたら終了
 app.on("window-all-closed", function(){
 	if(process.platform != "darwin"){
@@ -50,6 +49,9 @@ app.on("ready", function(){
 			webContents: mainWindow.webContents
 		});
 	});
+	
+	//開発ツールを開く
+	mainWindow.toggleDevTools();
 });
 
 //ipcハンドラを定義
