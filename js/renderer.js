@@ -71,7 +71,6 @@ ipcRenderer.on("set_songs_num", function(event){
 });
 
 ipcRenderer.on("set_info", function(event, info, taikojiro_dir_path, songs_num){
-	console.log(info);
 	$(".info_view > .title").html(info.title);
 	$(".info_view > .subtitle").html(info.subtitle);
 	$(".info_view > .dir_info").html(info.path.replace(taikojiro_dir_path, "").match(/^\/(.*)\/.*?\.tja$/, "")[1].replace(/\//g, " > "))
@@ -86,10 +85,10 @@ ipcRenderer.on("set_info", function(event, info, taikojiro_dir_path, songs_num){
 		$(".info_view > .clearmark").removeClass("clearmark-gold");
 		$(".info_view > .clearmark").addClass("clearmark-" + info.highscore.Oni.clearmark);
 		$(".info_view > .highscore").html("HiScore : " + info.highscore.Oni.score + "<br>" +
-		"良 : " + info.highscore.Oni.great + "  " +
-		"可 : " + info.highscore.Oni.good + "  " +
-		"不可 : " + info.highscore.Oni.bad + "  " +
-		"連打 : " + info.highscore.Oni.roll);
+		"良:" + info.highscore.Oni.great + " " +
+		"可:" + info.highscore.Oni.good + " " +
+		"不可:" + info.highscore.Oni.bad + " " +
+		"連打:" + info.highscore.Oni.roll);
 	}else{
 		$(".info_view > .clearmark").removeClass("clearmark-new");
 		$(".info_view > .clearmark").removeClass("clearmark-none");

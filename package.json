@@ -1,6 +1,6 @@
 {
 	"name": "tja_random_selector",
-	"version": "4.1.0",
+	"version": "4.1.1",
 	"main": "index.js",
 	"scripts": {
 	},

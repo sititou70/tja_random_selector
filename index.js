@@ -51,7 +51,7 @@ app.on("ready", function(){
 	});
 	
 	//開発ツールを開く
-	mainWindow.toggleDevTools();
+	//mainWindow.toggleDevTools();
 });
 
 //ipcハンドラを定義
