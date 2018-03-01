@@ -5,13 +5,23 @@
 	"scripts": {
 		"start": "electron .",
 		"install-electron-wsl": "npm uninstall electron && export npm_config_platform=win32 && npm install electron && unset npm_config_platform",
-		"pack": "asar pack . ./dist/app.asar"
+		"pack": "asar pack . ./dist/app.asar",
+		"build:pack-app": "npm run pack",
+		"build:download-electron": "curl -L -O https://github.com/electron/electron/releases/download/v1.8.2/electron-v1.8.2-win32-x64.zip",
+		"build:unzip-electron": "unzip -d ./dist/tja_random_selector electron-v1.8.2-win32-x64.zip",
+		"build:copy-app": "cp ./dist/app.asar ./dist/tja_random_selector/resources/",
+		"build:tjaignore": "cp ./tjaignore.txt ./dist/tja_random_selector/",
+		"build:window_bounds": "cp ./window_bounds.json ./dist/tja_random_selector/",
+		"build:rename-exefile": "mv ./dist/tja_random_selector/electron.exe ./dist/tja_random_selector/tja_random_selector.exe",
+		"build:remove-files": "rm -rf ./electron-v1.8.2-win32-x64.zip",
+		"build": "npm-run-all build:*"
 	},
 	"author": "sititou70",
 	"license": "MIT",
 	"devDependencies": {
 		"asar": "^0.14.2",
-		"encoding-japanese": "^1.0.28"
+		"encoding-japanese": "^1.0.28",
+		"npm-run-all": "^4.1.2"
 	},
 	"dependencies": {
 		"electron": "^1.8.2"
