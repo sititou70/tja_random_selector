@@ -10,7 +10,7 @@
 ## インストール
 1. Windows(x64)向けにパッケージしています。
 [リリース情報](https://github.com/sititou70/tja_random_selector/releases)を確認して、一番新しいZIPファイルを取得してください。
-2. 解凍して出てきた、tja_random_selector-win32-x64フォルダをtaikojiro.exeと同じ場所に配置してください。
+2. 解凍して出てきた、tja_random_selectorフォルダをtaikojiro.exeと同じ場所に配置してください。
 
 ## キーバインド
 `ESC` キーは、現在の処理をキャンセルするために使います。
