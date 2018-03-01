@@ -15,7 +15,7 @@ var init = function(params){
 	webContents = params.webContents;
 	tjaignore_path = params.tjaignore_path;
 	
-	songs_info = get_files(taikojiro_dir_path, ".*\.tja$");
+  songs_info = get_files(taikojiro_dir_path, ".*\.tja$");
 	songs_info.forEach(function(obj, i){
 		songs_info[i] = get_songs_info(obj);
 	});
@@ -33,9 +33,10 @@ var init = function(params){
 
 //ファイルの一覧を配列で取得する
 var get_files = function(dir, grep){
-	var ans = [];
+  var ans = [];
+  if(dir.indexOf("tja_random_selector") !== -1)return ans;
 	
-	fs.readdirSync(dir).forEach(function(obj){
+  fs.readdirSync(dir).forEach(function(obj){
 		if(fs.statSync(dir + "/" + obj).isFile()){
 			if(RegExp(grep).test(obj))ans.push(dir + "/" + obj);
 		}else{
@@ -43,8 +44,8 @@ var get_files = function(dir, grep){
 				ans.push(obj_);
 			});
 		}
-	});
-	
+  });
+
 	return ans;
 };
 

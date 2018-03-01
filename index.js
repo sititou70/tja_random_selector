@@ -3,6 +3,7 @@
 const {app, Menu, BrowserWindow, ipcMain} = require("electron");
 var functions = require("./js/functions");
 var fs = require("fs");
+var path = require("path");
 var exec = require("child_process").exec;
 var mainWindow = null;
 
@@ -16,7 +17,7 @@ app.on("window-all-closed", function(){
 // Electronの初期化完了後に実行
 app.on("ready", function(){
 	// メイン画面の表示。ウィンドウの幅、高さを指定できる
-	var window_bounds = JSON.parse(fs.readFileSync(__dirname + "\\window_bounds.json"));
+  var window_bounds = JSON.parse(fs.readFileSync(path.join(process.argv[0], "../window_bounds.json")));
 	mainWindow = new BrowserWindow({
 		width: window_bounds.width,
 		height: window_bounds.height,
@@ -31,7 +32,7 @@ app.on("ready", function(){
 	//ウインドウが閉じる前にサイズと位置を記録する
 	mainWindow.on("close", function(){
 		var window_bounds = JSON.stringify(mainWindow.getBounds());
-		fs.writeFileSync(__dirname + "\\window_bounds.json", window_bounds);
+    fs.writeFileSync(path.join(process.argv[0], "../window_bounds.json"), window_bounds);
 	});
 	
 	//ウィンドウが閉じられたらアプリも終了
@@ -40,11 +41,11 @@ app.on("ready", function(){
 	});
 	
 	//rendererプロセスのJSの実行が完了した
-	mainWindow.webContents.on("did-finish-load", function(){
-		//functionsをinit
+  mainWindow.webContents.on("did-finish-load", function(){
+    //functionsをinit
 		functions.init({
-			taikojiro_dir_path: __dirname.match(/^(.*\\).*?\\.*?\\.*?\\?$/)[1],
-			tjaignore_path: __dirname + "\\tjaignore.txt",
+			taikojiro_dir_path: path.join(process.argv[0], "../../"),
+      tjaignore_path: path.join(process.argv[0], "../tjaignore.txt"),
 			app: app,
 			webContents: mainWindow.webContents
 		});

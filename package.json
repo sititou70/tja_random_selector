@@ -3,10 +3,17 @@
 	"version": "4.1.1",
 	"main": "index.js",
 	"scripts": {
-	},
-	"dependencies": {
-		"encoding-japanese": "*"
+		"start": "electron .",
+		"install-electron-wsl": "npm uninstall electron && export npm_config_platform=win32 && npm install electron && unset npm_config_platform",
+		"pack": "asar pack . ./dist/app.asar"
 	},
 	"author": "sititou70",
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"asar": "^0.14.2",
+		"encoding-japanese": "^1.0.28"
+	},
+	"dependencies": {
+		"electron": "^1.8.2"
+	}
 }
