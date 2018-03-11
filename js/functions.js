@@ -63,24 +63,29 @@ var get_songs_info = function(path){
 		return info;
 	}
 	
-	info.path = path;
-	info.title = content.match(/^TITLE:(.*?)(\r|\n|\r\n)/)[1];
-	info.subtitle = content.match(/(\r|\n|\r\n)SUBTITLE:(--)?(.*?)(\r|\n|\r\n)/)[3];
+  info.path = path;
+
+  const matched_title = content.match(/^TITLE:(.*?)(\r|\n|\r\n)/);
+  info.title = matched_title !== null ? matched_title[1] : "";
+  const matched_subtitle = content.match(/(\r|\n|\r\n)SUBTITLE:(--)?(.*?)(\r|\n|\r\n)/);
+  info.subtitle = matched_subtitle !== null ? matched_subtitle[3] : "";
 	
-	info.level = -1;
-	content.match(/(\r|\n|\r\n)LEVEL:[0-9]+(\r|\n|\r\n)/g).forEach((function(obj){
+  info.level = -1;
+  const matched_levels = content.match(/(\r|\n|\r\n)LEVEL:[0-9]+(\r|\n|\r\n)/g);
+	matched_levels !== null ? matched_levels.forEach((function(obj){
 		var now_level = parseInt(obj.match(/LEVEL:([0-9]+)/)[1]);
 		if(now_level > info.level)info.level = now_level;
-	}).bind(this));
+	}).bind(this)) : null;
 	
 	info.bpm_high = -1;
 	info.bpm_low = 9999999;
-	
-	content.match(/(\r|\n|\r\n)(BPM:|#BPMCHANGE )[0-9]+.*?(\r|\n|\r\n)/g).forEach(function(obj){
+
+  const matched_bpms = content.match(/(\r|\n|\r\n)(BPM:|#BPMCHANGE )[0-9]+.*?(\r|\n|\r\n)/g);
+	matched_bpms !== null ? matched_bpms.forEach(function(obj){
 		var now_bpm = parseInt(obj.match(/(BPM:|#BPMCHANGE )([0-9]+)/)[2]);
 		if(now_bpm > info.bpm_high)info.bpm_high = now_bpm;
 		if(now_bpm < info.bpm_low)info.bpm_low = now_bpm;
-	});
+	}) : null;
 	
 	
 	info.highscore = {};
